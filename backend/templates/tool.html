@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmOne Tools - AI Agriculture Assistant</title>
+    <meta name="description" content="AI tools for plant disease detection and crop recommendations.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/wheat.png">
+</head>
+
+<body>
+    <!-- Skip link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <span>FarmOne</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/tool" class="active">Tools</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <!-- Dynamically filled by script.js -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container">
+        <div class="page-header" style="text-align: center; padding: 3rem 0;">
+            <h1>FarmOne AI Tools</h1>
+            <p style="font-size: 1.2rem; color: var(--gray-medium); max-width: 700px; margin: 1rem auto 0;">
+                Select a tool below to get started. No login required for basic features.
+            </p>
+        </div>
+
+        <!-- Tabbed Interface -->
+        <div class="dashboard">
+            <div class="tabs-header" role="tablist" aria-label="FarmOne Tools">
+                <button class="tab-btn active" data-tab="disease-tab" role="tab" aria-selected="true"
+                    aria-controls="disease-tab" id="tab-disease">
+                    <i class="fas fa-leaf"></i> Disease Detection
+                </button>
+                <button class="tab-btn" data-tab="crop-tab" role="tab" aria-selected="false" aria-controls="crop-tab"
+                    id="tab-crop">
+                    <i class="fas fa-tractor"></i> Crop Recommendation
+                </button>
+                <button class="tab-btn" data-tab="schemes-tab" role="tab" aria-selected="false"
+                    aria-controls="schemes-tab" id="tab-schemes">
+                    <i class="fas fa-file-invoice-dollar"></i> Government Schemes
+                </button>
+            </div>
+
+            <!-- Tab 1: Disease Detection -->
+            <div id="disease-tab" class="tab-content active" role="tabpanel" aria-labelledby="tab-disease">
+                <h2>Plant Disease Detection</h2>
+                <p>Upload an image of a plant leaf to detect potential diseases.</p>
+
+                <div class="form-group">
+                    <label for="plant-select">Select Plant Type</label>
+                    <div class="select-box">
+                        <select id="plant-select" class="form-control" aria-describedby="plant-help">
+                            <option value="">-- Select a Plant --</option>
+                            <option value="apple">Apple</option>
+                            <option value="tomato">Tomato</option>
+                            <option value="potato">Potato</option>
+                            <option value="rice">Rice</option>
+                            <option value="mango">Mango</option>
+                            <option value="banana">Banana</option>
+                            <option value="sugarcane">Sugarcane</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="pumpkin">Pumpkin</option>
+                        </select>
+                    </div>
+                    <small id="plant-help" class="help-text">Select the type of plant for accurate diagnosis</small>
+                </div>
+
+                <div class="upload-area" id="upload-area" role="button" tabindex="0"
+                    aria-label="Upload leaf image area">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Upload Leaf Image</h3>
+                    <p>Drag and drop an image here, or click to browse</p>
+                    <p style="font-size: 0.9rem; color: var(--gray-medium); margin-top: 10px;">Supported formats: JPG,
+                        PNG, WEBP (Max 5MB)</p>
+                    <input type="file" id="leaf-image" accept="image/*" aria-label="Select leaf image"
+                        style="display: none;">
+                    <button class="btn" onclick="document.getElementById('leaf-image').click()">
+                        <i class="fas fa-folder-open"></i> Browse Files
+                    </button>
+                </div>
+
+                <img id="image-preview" alt="Preview of uploaded leaf image" loading="lazy" style="display: none;">
+
+                <div style="display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
+                    <button id="detect-disease" class="btn">
+                        <i class="fas fa-search"></i> Detect Disease
+                    </button>
+                    <button class="btn btn-outline" onclick="resetImageUpload()">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+
+                <div id="disease-result" class="result-container" aria-live="polite"></div>
+            </div>
+
+            <!-- Tab 2: Crop Recommendation -->
+            <div id="crop-tab" class="tab-content" role="tabpanel" aria-labelledby="tab-crop">
+                <h2>Crop Recommendation System</h2>
+                <p>Enter your soil and environmental parameters to get personalized crop recommendations.</p>
+
+                <form id="crop-form" novalidate>
+                    <div class="crop-form-grid">
+                        <div class="crop-input-group">
+                            <label for="nitrogen" style="color: rgb(25, 101, 240);">Nitrogen (N) kg/ha</label>
+                            <input type="number" id="nitrogen" min="0" max="200" step="1" placeholder="e.g., 80"
+                                required aria-describedby="nitrogen-help">
+                            <small id="nitrogen-help" class="help-text">Enter nitrogen level in kg/ha (0-200)</small>
+                        </div>
+
+                        <div class="crop-input-group">
+                            <label for="phosphorus" style="color: rgb(248, 85, 26);">Phosphorus (P) kg/ha</label>
+                            <input type="number" id="phosphorus" min="5" max="100" step="1" placeholder="e.g., 40"
+                                required aria-describedby="phosphorus-help">
+                            <small id="phosphorus-help" class="help-text">Enter phosphorus level in kg/ha
+                                (0-100)</small>
+                        </div>
+
+                        <div class="crop-input-group">
+                            <label for="potassium" style="color: rgb(255, 217, 0);">Potassium (K) kg/ha</label>
+                            <input type="number" id="potassium" min="0" max="150" step="1" placeholder="e.g., 45"
+                                required aria-describedby="potassium-help">
+                            <small id="potassium-help" class="help-text">Enter potassium level in kg/ha (0-150)</small>
+                        </div>
+
+                        <div class="crop-input-group">
+                            <label for="ph-level" style="color: rgb(207, 55, 245);">Soil pH Level</label>
+                            <input type="number" id="ph-level" min="4.0" max="9.0" step="0.1" placeholder="e.g., 6.5"
+                                required aria-describedby="ph-help">
+                            <small id="ph-help" class="help-text">Enter soil pH (4.0-9.0)</small>
+                        </div>
+
+                        <div class="crop-input-group">
+                            <label for="temperature" style="color: rgb(227, 14, 14);">Temperature (°C)</label>
+                            <input type="number" id="temperature" min="-10" max="50" step="0.5" placeholder="e.g., 25"
+                                required aria-describedby="temp-help">
+                            <small id="temp-help" class="help-text">Enter average temperature in °C</small>
+                        </div>
+
+                        <div class="crop-input-group">
+                            <label for="humidity" style="color: rgb(106, 187, 252);">Humidity (%)</label>
+                            <input type="number" id="humidity" min="0" max="100" step="1" placeholder="e.g., 70"
+                                required aria-describedby="humidity-help">
+                            <small id="humidity-help" class="help-text">Enter relative humidity (0-100%)</small>
+                        </div>
+
+                        <div class="crop-input-group">
+                            <label for="rainfall" style="color: rgb(83, 85, 86);">Rainfall (mm)</label>
+                            <input type="number" id="rainfall" min="0" max="5000" step="10" placeholder="e.g., 800"
+                                required aria-describedby="rainfall-help">
+                            <small id="rainfall-help" class="help-text">Enter annual rainfall in mm</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-calculator"></i> Get Crop Recommendations
+                    </button>
+                </form>
+
+                <div id="crop-result" class="result-container" aria-live="polite"></div>
+            </div>
+
+            <!-- Tab 3: Government Schemes (Empty) -->
+            <div id="schemes-tab" class="tab-content" role="tabpanel" aria-labelledby="tab-schemes">
+                <h2>Government Scheme Information</h2>
+                <p>Browse through government schemes available for farmers. (Content coming soon)</p>
+
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Information Coming Soon</h3>
+                    <p>We are currently gathering comprehensive information on government agricultural schemes.</p>
+                    <p>This section will include:</p>
+                    <div class="empty-state-details">
+                        <ul>
+                            <li>Latest government subsidies and grants</li>
+                            <li>Direct links to official application portals</li>
+                            <li>Deadlines and important dates</li>
+                        </ul>
+                    </div>
+                    <p>Check back soon for updates!</p>
+                </div>
+
+                <!-- Empty schemes container -->
+                <div id="schemes-container" class="schemes-grid" style="display: none;">
+                    <!-- Schemes will be loaded here when available -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <h4>FarmOne Tools</h4>
+                    <p>Smart solutions for modern agriculture.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Tools</h4>
+                    <ul>
+                        <li><a href="#disease-tab">Disease Detection</a></li>
+                        <li><a href="#crop-tab">Crop Recommendation</a></li>
+                        <li><a href="#schemes-tab">Government Schemes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Datasets Used</h4>
+                    <ul>
+                        <li><a href="https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset"
+                                target="_blank" rel="noopener noreferrer">Plant Diseases Dataset</a></li>
+                        <li><a href="https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset"
+                                target="_blank" rel="noopener noreferrer">Crop Recommendation Dataset</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 FarmOne ................</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</body>
+
+</html>

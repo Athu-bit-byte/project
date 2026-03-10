@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmOne - AI-Powered Agriculture Assistance</title>
+    <meta name="description"
+        content="FarmOne: AI-powered agricultural tools for plant disease detection and crop recommendations.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/wheat.png">
+</head>
+
+<body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <span>FarmOne</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="/tool">Tools</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <!-- Dynamically filled by script.js -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="container">
+                <h1 id="hero-heading">Smart Farming Solutions for Modern Agriculture</h1>
+                <p>FarmOne combines artificial intelligence with agricultural expertise to help farmers make informed
+                    decisions and detect plant diseases early.</p>
+                <div class="hero-buttons">
+                    <a href="#features" class="btn">
+                        <i class="fas fa-play-circle"></i> Explore Features
+                    </a>
+                    <a href="/tool" class="btn btn-secondary">
+                        <i class="fas fa-rocket"></i> Try Tools Now
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Buttons -->
+        <section id="features" class="feature-buttons-section" aria-labelledby="features-heading">
+            <div class="container">
+                <h2 id="features-heading" style="text-align: center; margin-bottom: 1rem;">Our AI-Powered Features</h2>
+                <p style="text-align: center; margin-bottom: 2rem; font-size: 1.2rem; color: var(--gray-medium);">
+                    Essential tools to revolutionize your farming practices
+                </p>
+
+                <div class="feature-buttons-container">
+                    <!-- Button 1: Disease Detection -->
+                    <a href="/tool#disease" class="feature-button" role="button">
+                        <div class="feature-icon-large">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Plant Disease Detection</h3>
+                        <ul class="feature-list-compact">
+                            <li>Upload leaf image for diagnosis</li>
+                            <li>Identify diseases with high accuracy</li>
+                            <li>Get treatment recommendations</li>
+                        </ul>
+                        <div class="btn">
+                            <i class="fas fa-play"></i> Try Disease Detection
+                        </div>
+                    </a>
+
+                    <!-- Button 2: Crop Recommendation -->
+                    <a href="/tool#crop" class="feature-button" role="button">
+                        <div class="feature-icon-large">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <h3>Crop Recommendation</h3>
+                        <ul class="feature-list-compact">
+                            <li>Enter soil parameters (N, P, pH etc.)</li>
+                            <li>Get top crop suggestions</li>
+                            <li>Maximize your yield potential</li>
+                        </ul>
+                        <div class="btn">
+                            <i class="fas fa-play"></i> Get Crop Recommendations
+                        </div>
+                    </a>
+
+                    <!-- Button 3: Government Schemes (Empty) -->
+                    <a href="/tool#schemes" class="feature-button" role="button">
+                        <div class="feature-icon-large">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <h3>Government Schemes</h3>
+                        <ul class="feature-list-compact">
+                            <li>Information will be added soon</li>
+                            <li>Latest schemes and grants</li>
+                            <li>Direct application links</li>
+                        </ul>
+                        <div class="btn">
+                            <i class="fas fa-play"></i> Browse Schemes
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Feature Information -->
+        <section class="features" style="background-color: var(--light-green); padding: 4rem 0;">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Detailed Feature Information</h2>
+
+                <div class="features-grid">
+                    <!-- Feature 1: Disease Detection Details -->
+                    <div class="feature-card">
+                        <h3>Detectable Plants</h3>
+                        <ul class="feature-list">
+                            <li><strong>Apple</strong> - Scab, Black Rot, Rust</li>
+                            <li><strong>Tomato</strong> - Early Blight, Late Blight, Mites, Viruses</li>
+                            <li><strong>Potato</strong> - Early & Late Blight, Healthy</li>
+                            <li><strong>Rice</strong> - Blast, Blight, Brown Spot</li>
+                            <li><strong>Mango</strong> - Anthracnose, Canker, Mildew</li>
+                            <li><strong>Banana</strong> - Panama Disease, Sigatoka</li>
+                            <li><strong>Sugarcane</strong> - Red Rot, Rust, Mosaic</li>
+                            <li><strong>Cotton</strong> - Blight, Wilt, Curl Virus</li>
+                            <li><strong>Pumpkin</strong> - Downy & Powdery Mildew</li>
+                        </ul>
+                    </div>
+
+                    <!-- Feature 2: Crop Recommendation Details -->
+                    <div class="feature-card">
+                        <h3>Required Soil Parameters</h3>
+                        <ul class="feature-list">
+                            <li><strong>Nitrogen (N):</strong> 0-140 kg/ha</li>
+                            <li><strong>Phosphorus (P):</strong> 5-145 kg/ha</li>
+                            <li><strong>Potassium (K):</strong> 5-205 kg/ha</li>
+                            <li><strong>pH Level:</strong> 3.5-9.9 </li>
+                            <li><strong>Temperature:</strong> Crop-specific</li>
+                            <li><strong>Humidity:</strong> Relative %</li>
+                            <li><strong>Rainfall:</strong> Annual/pre-season</li>
+                        </ul>
+                    </div>
+
+                    <!-- Feature 3: Government Schemes Details (Empty) -->
+                    <div class="feature-card">
+                        <h3>Government Schemes</h3>
+                        <div class="coming-soon-section">
+                            <i class="fas fa-clock"></i>
+                            <h4>Information Coming Soon</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <h4>FarmOne</h4>
+                    <p>Smart solutions for modern agriculture.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/tool">Tools</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="/tool#disease">Disease Detection</a></li>
+                        <li><a href="/tool#crop">Crop Recommendation</a></li>
+                        <li><a href="/tool#schemes">Government Schemes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:supportfarmone@gmail.com"><i class="fas fa-envelope"></i>
+                                supportfarmone@gmail.com</a></li>
+                        <li><a href="tel:+919605149329"><i class="fas fa-phone"></i> +91 9605149329</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Agricultural Project Final Year</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 FarmOne ...............</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</body>
+
+</html>
