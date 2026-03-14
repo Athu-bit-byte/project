@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/wheat.png">
+
+    <!-- React Dependencies for Extra UI features -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
 </head>
 
 <body>
@@ -181,31 +187,10 @@
                 <div id="crop-result" class="result-container" aria-live="polite"></div>
             </div>
 
-            <!-- Tab 3: Government Schemes (Empty) -->
+            <!-- Tab 3: Government Schemes (React rendered) -->
             <div id="schemes-tab" class="tab-content" role="tabpanel" aria-labelledby="tab-schemes">
-                <h2>Government Scheme Information</h2>
-                <p>Browse through government schemes available for farmers. (Content coming soon)</p>
-
-                <div class="empty-state">
-                    <div class="empty-state-icon">
-                        <i class="fas fa-seedling"></i>
-                    </div>
-                    <h3>Information Coming Soon</h3>
-                    <p>We are currently gathering comprehensive information on government agricultural schemes.</p>
-                    <p>This section will include:</p>
-                    <div class="empty-state-details">
-                        <ul>
-                            <li>Latest government subsidies and grants</li>
-                            <li>Direct links to official application portals</li>
-                            <li>Deadlines and important dates</li>
-                        </ul>
-                    </div>
-                    <p>Check back soon for updates!</p>
-                </div>
-
-                <!-- Empty schemes container -->
-                <div id="schemes-container" class="schemes-grid" style="display: none;">
-                    <!-- Schemes will be loaded here when available -->
+                <div id="react-schemes-root">
+                    <!-- React will render Government Schemes here -->
                 </div>
             </div>
         </div>
@@ -244,6 +229,7 @@
     </footer>
 
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <script type="text/babel" src="{{ url_for('static', filename='react_app.js') }}" defer></script>
 </body>
 
 </html>

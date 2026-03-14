@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/wheat.png">
+    
+    <!-- React Dependencies for Extra UI features -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
     <style>
         .history-section {
             margin-bottom: 3rem;
@@ -61,12 +67,8 @@
 
     <main id="main-content" class="container">
         <h1 style="text-align: center; margin: 2rem 0;">My Activity History</h1>
-        <div id="history-container">
-            <!-- History will be loaded here by JavaScript -->
-            <div style="text-align: center; padding: 3rem;">
-                <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: var(--primary-green);"></i>
-                <p>Loading your history...</p>
-            </div>
+        <div id="react-history-root">
+            <!-- React will render history here -->
         </div>
     </main>
 
@@ -93,5 +95,6 @@
     </footer>
 
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <script type="text/babel" src="{{ url_for('static', filename='react_app.js') }}" defer></script>
 </body>
 </html>

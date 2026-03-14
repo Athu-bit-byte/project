@@ -139,80 +139,7 @@ async function saveCropResult(resultData) {
     }
 }
 
-// ===== HISTORY PAGE =====
-async function loadHistory() {
-    if (!window.location.pathname.includes('history')) return;
-
-    const container = document.getElementById('history-container');
-    if (!container) return;
-
-    const user = await checkAuthStatus();
-    if (!user) {
-        window.location.href = '/login?redirect=history';
-        return;
-    }
-
-    try {
-        const response = await fetch(`/api/history/${user.id}`);
-        if (!response.ok) throw new Error('Failed to fetch history');
-        const data = await response.json();
-        displayHistory(data);
-    } catch (error) {
-        container.innerHTML = `<p class="error">Error loading history: ${error.message}</p>`;
-    }
-}
-
-function displayHistory(data) {
-    const container = document.getElementById('history-container');
-    if (!container) return;
-
-    let html = '';
-
-    const diseaseHistory = data.filter(item => item.type === 'disease');
-    const cropHistory = data.filter(item => item.type === 'crop');
-
-    // Disease history
-    html += '<section class="history-section"><h2>Disease Detection History</h2>';
-    if (diseaseHistory.length === 0) {
-        html += '<div class="empty-state"><p>No disease detection records yet.</p></div>';
-    } else {
-        html += '<div class="history-grid">';
-        diseaseHistory.forEach(item => {
-            html += `
-                <div class="history-card">
-                    <div class="history-date">${new Date(item.date).toLocaleDateString()}</div>
-                    <div class="history-detail"><strong>Crop:</strong> ${item.crop}</div>
-                    <div class="history-detail"><strong>Result:</strong> ${item.result}</div>
-                </div>
-            `;
-        });
-        html += '</div>';
-    }
-    html += '</section>';
-
-    // Crop history
-    html += '<section class="history-section"><h2>Crop Recommendation History</h2>';
-    if (cropHistory.length === 0) {
-        html += '<div class="empty-state"><p>No crop recommendation records yet.</p></div>';
-    } else {
-        html += '<div class="history-grid">';
-        cropHistory.forEach(item => {
-            let crops = [];
-            try { crops = JSON.parse(item.result); } catch (e) { crops = [item.result]; }
-            html += `
-                <div class="history-card">
-                    <div class="history-date">${new Date(item.date).toLocaleDateString()}</div>
-                    <div class="history-detail"><strong>Top Choice:</strong> ${item.crop}</div>
-                    <div class="history-detail"><strong>Full Recommendations:</strong> ${crops.join(', ')}</div>
-                </div>
-            `;
-        });
-        html += '</div>';
-    }
-    html += '</section>';
-
-    container.innerHTML = html;
-}
+// ===== HISTORY PAGE (Handled by React in react_app.js) =====
 
 // ===== TAB FUNCTIONALITY =====
 function initTabs() {
@@ -608,5 +535,5 @@ document.addEventListener('DOMContentLoaded', function () {
     initTabs();
     initDiseaseDetection();
     initCropRecommendation();
-    loadHistory();
+    // History is loaded by React
 });
